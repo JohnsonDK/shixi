@@ -1,4 +1,3 @@
-
 def handle(arrayA,arrayB):
     res=[]
     i=0

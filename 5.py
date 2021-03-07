@@ -1,5 +1,3 @@
-
-
 letter=['one', 'three', 'two', 'five', 'six']
 number=[]
 for i in range(0,len(letter)):

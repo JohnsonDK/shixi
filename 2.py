@@ -1,4 +1,3 @@
-
 def deleteSameNum(num):
     num.sort()
     last = num[-1]
