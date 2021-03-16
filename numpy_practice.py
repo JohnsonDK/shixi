@@ -19,6 +19,7 @@
 
 #取余操作
 import pandas as pd
+import matplotlib.pyplot as plt
 def simplify(x):
     x=x%19
     return x
@@ -26,11 +27,20 @@ def simplify(x):
 def De_duplication():
     df.drop_duplicates(subset=['userid', 'itemindex','rating'], keep='first', inplace=True)
 
+def Count_gender():
+    gm = 0
+    gf = 0
+    if final['gender'] == 'M':
+        gm = gm+1
+    else:
+        gf = gf+1
+
 
 #读取excel表格
 df = pd.read_csv("customers_rating_data/u.data.csv")
 pf = pd.read_csv("customers_rating_data/u.item.csv")
 tf = pd.read_csv("customers_rating_data/u.user.csv")
+af = pd.read_csv("customers_rating_data/analysis.csv")
 
 #数据预处理
 
@@ -54,6 +64,36 @@ t = final['timestamp']
 final = final.drop(columns = ['timestamp'])
 final.insert(7,'timestamp',t)
 final.to_csv('customers_rating_data/final_data.csv', index=False, encoding='utf-8_sig')
+
+#求各类型item的评分平均数
+m = final.groupby(['itemtype'])['rating'].mean()
+
+#绘制折线图
+x = af['itemtype']
+y = af['rating']
+plt.plot(x,y,label='aver_rating')
+
+
+plt.tick_params(axis='x', labelsize=5)
+plt.xticks(rotation=-15)
+plt.xlabel('itemtype')
+plt.ylabel('point')
+plt.title('average rating of different types')
+plt.legend()
+plt.savefig('aver_rating.png')
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
